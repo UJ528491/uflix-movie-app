@@ -10,7 +10,7 @@ import TV from "Routes/TV";
 import Search from "Routes/Search";
 import Header from "Components/Header";
 
-export default () => (
+const routerJS = () => (
   <Router>
     <Header />
     <Switch>
@@ -22,3 +22,5 @@ export default () => (
     </Switch>
   </Router>
 );
+
+export default routerJS;

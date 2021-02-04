@@ -39,7 +39,7 @@ const SLInk = styled(NavLink)`
   border-bottom: 3px solid transparent;
 `;
 
-export default () => (
+const headerJs = () => (
   <Header>
     <List>
       <Item>
@@ -56,3 +56,5 @@ export default () => (
     </List>
   </Header>
 );
+
+export default headerJs;
