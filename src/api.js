@@ -8,7 +8,7 @@ const api = axios.create({
   },
 });
 // api.get("url") /url 절대경로 url 상대경로
-export const MovieApi = {
+export const MoviesApi = {
   nowPlaying: () => api.get("movie/now_playing"),
   upComing: () => api.get("movie/upcoming"),
   topRated: () => api.get("movie/top_rated"),
