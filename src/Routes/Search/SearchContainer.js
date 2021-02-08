@@ -1,4 +1,4 @@
-import { MoviesApi } from "api";
+import { MoviesApi, TVApi } from "api";
 import React from "react";
 import SearchPresenter from "./SearchPresenter";
 
@@ -11,13 +11,24 @@ export default class searchContainer extends React.Component {
     loading: false,
   };
 
-  handleSubmit = () => {
+  handleSubmit = event => {
+    event.preventDefault();
     const { searchTerm } = this.state;
     if (searchTerm !== "") {
-      this.searchByterm(searchTerm);
+      this.searchByTerm();
     }
   };
-  searchByterm = async () => {
+
+  updateTerm = event => {
+    const {
+      target: { value },
+    } = event;
+    this.setState({
+      searchTerm: value,
+    });
+  };
+
+  searchByTerm = async () => {
     const { searchTerm } = this.state;
     this.setState({
       loading: true,
@@ -27,12 +38,12 @@ export default class searchContainer extends React.Component {
         data: { results: movieResults },
       } = await MoviesApi.search(searchTerm);
       const {
-        data: { results: showResults },
-      } = await MoviesApi.search(searchTerm);
-      this.setState({ movieResults, showResults });
+        data: { results: tvResults },
+      } = await TVApi.search(searchTerm);
+      this.setState({ movieResults, tvResults });
     } catch {
       this.setState({
-        error: "Can't find movies information.",
+        error: "Can't find videos information.",
       });
     } finally {
       this.setState({ loading: false });
@@ -41,7 +52,6 @@ export default class searchContainer extends React.Component {
 
   render() {
     const { movieResults, tvResults, searchTerm, error, loading } = this.state;
-    console.log(this.state);
     return (
       <SearchPresenter
         movieResults={movieResults}
@@ -50,6 +60,7 @@ export default class searchContainer extends React.Component {
         error={error}
         loading={loading}
         handleSubmit={this.handleSubmit}
+        updateTerm={this.updateTerm}
       />
     );
   }

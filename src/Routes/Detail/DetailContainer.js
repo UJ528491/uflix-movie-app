@@ -36,7 +36,6 @@ export default class detailContainer extends React.Component {
       } else {
         ({ data: result } = await TVApi.showDetail(parsedId));
       }
-      console.log(result);
     } catch {
       this.setState({ error: "Can't find anything." });
     } finally {

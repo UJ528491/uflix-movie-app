@@ -29,7 +29,7 @@ export default class tvContainer extends React.Component {
       });
     } catch {
       this.setState({
-        error: "Can't find movies information.",
+        error: "Can't find TV shows information.",
       });
     } finally {
       this.setState({ loading: false });
