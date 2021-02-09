@@ -1,5 +1,5 @@
-import { MoviesApi, TVApi } from "api";
 import React from "react";
+import { MoviesApi, TVApi } from "api";
 import DetailPresenter from "./DetailPresenter";
 
 export default class detailContainer extends React.Component {
@@ -29,10 +29,10 @@ export default class detailContainer extends React.Component {
       return push("/");
     }
     let result = null;
+    console.log(isMovie);
     try {
       if (isMovie) {
-        const request = await MoviesApi.movieDetail(parsedId);
-        result = request.data;
+        ({ data: result } = await MoviesApi.movieDetail(parsedId));
       } else {
         ({ data: result } = await TVApi.showDetail(parsedId));
       }
@@ -45,6 +45,7 @@ export default class detailContainer extends React.Component {
 
   render() {
     const { result, error, loading } = this.state;
+
     return <DetailPresenter result={result} error={error} loading={loading} />;
   }
 }
