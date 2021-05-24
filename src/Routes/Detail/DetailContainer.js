@@ -13,6 +13,7 @@ export default class detailContainer extends React.Component {
       error: null,
       loading: true,
       isMovie: pathname.includes("/movie/"),
+      id: null,
     };
   }
 
@@ -25,11 +26,11 @@ export default class detailContainer extends React.Component {
     } = this.props;
     const { isMovie } = this.state;
     const parsedId = parseInt(id);
+    this.setState({ id: parsedId });
     if (isNaN(parsedId)) {
       return push("/");
     }
     let result = null;
-    console.log(isMovie);
     try {
       if (isMovie) {
         ({ data: result } = await MoviesApi.movieDetail(parsedId));
@@ -44,8 +45,6 @@ export default class detailContainer extends React.Component {
   }
 
   render() {
-    const { result, error, loading } = this.state;
-
-    return <DetailPresenter result={result} error={error} loading={loading} />;
+    return <DetailPresenter {...this.state} />;
   }
 }
